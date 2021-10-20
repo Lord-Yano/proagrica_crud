@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,8 +18,8 @@ class UserController extends Controller
     {
         // Get all users and pass them down to view
 
-        //view folder location | admin->users->index.blade
-        return view('admin.users.index', ['users' => User::all()]);
+        //view folder location | admin->users->index.blade | paginate 10 items at a time
+        return view('admin.users.index', ['users' => User::paginate(10)]);
     }
 
     /**
@@ -28,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // return view | pass down roles for admin to assign to users
+        return view('admin.users.create', ['roles' => Role::all()]);
     }
 
     /**
@@ -39,7 +41,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Create user | accept all except | token field is not present in db and roles are not saved in user db
+        $user = User::create($request->except(['_token', 'roles']));
+
+        // Use sync for multiple roles
+        $user->roles()->sync($request->roles);
+
+        // return admin to user index page
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -84,6 +93,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Destroy user with ID
+        User::destroy($id);
+
+        // redirect user after deletion
+        return redirect(route('admin.users.index'));
     }
 }

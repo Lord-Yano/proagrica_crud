@@ -10,9 +10,7 @@
         <h1 class="float-left">Users</h1>
         <a class="btn btn-sm btn-success float-right" href="{{route('admin.users.create')}}" role="button">Create</a>
     </div>
-
 </div>
-<h1>Users</h1>
 
 <!-- Print out users-->
 <div class="card">
@@ -58,6 +56,8 @@
 
         </tbody>
     </table>
+    <!--Print out pagination links-->
+    {{$users->links()}}
 </div>
 
 @endsection
