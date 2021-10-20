@@ -1,0 +1,36 @@
+//import bootstrap from ~ (root dir)
+@import "~bootstrap/scss/bootstrap"; // sass versioin of bootsrap
+
+// Advisable to put the style in a separate file for better maintanability
+
+// Styles for navbar
+
+//Variable calls
+$navBar : #1E2632;
+$background : #f7f8f9;
+$text : #3A3C42;
+
+body{
+    background-color: $background;
+    color: $text;
+}
+
+.h1{
+    margin-bottom: 30px;
+}
+
+// navbar class applied by Bootstrap Navbar template
+.navbar{
+    background-color: $navBar; //overrides navbar-light bg-light
+    box-shadow: 0 5px 10px 0 rgba(204, 204, 204, 0.3); // drop down shadow
+    margin-bottom: 40px;
+    // All links (Home;User) in navbar turn to white when unselected
+    a{
+        color : #fff;
+    }
+}
+
+.card{
+    box-shadow: 0 2px 4px rgba(204, 204, 204, 0.8);
+    padding: 20px 40px;
+}
