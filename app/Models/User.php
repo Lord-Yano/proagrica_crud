@@ -43,11 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Hashing passwords from create user form using a mutator setPasswordAttribute
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
+    /** Uncomment this should you wish to not use fortify built in method
+     *  // Hashing passwords from create user form using a mutator setPasswordAttribute
+     *   public function setPasswordAttribute($password)
+     *   {
+     *  $this->attributes['password'] = Hash::make($password);
+     *   }
+     */
 
     // making user model know that it belongs to a M:M relationship so that laravel eloquent knows how to retrieve data
     public function roles()

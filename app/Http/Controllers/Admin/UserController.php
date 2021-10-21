@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
@@ -57,11 +58,16 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         // Validate data before user creation | check rules inside StoreUserRequest
-        $validatedData = $request->validated();
+        //$validatedData = $request->validated(); --uncomment should you wish to use custom method
 
         // Create user | accept all except | token field is not present in db and roles are not saved in user db
         // $user = User::create($request->except(['_token', 'roles']));
-        $user = User::create($validatedData);
+        //$user = User::create($validatedData); --uncomment should you wish to use custom method && pass in user.php
+
+
+        // Using fortify built in method --comment should you wish to use custom method
+        $newUser = new CreateNewUser();
+        $user = $newUser->create($request->only(['name', 'email', 'password', 'password_confirmation']));
 
         // Use sync for multiple roles
         $user->roles()->sync($request->roles);

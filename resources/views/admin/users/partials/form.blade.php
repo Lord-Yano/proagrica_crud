@@ -41,6 +41,19 @@
     @enderror
 
 </div>
+
+<div class="mb-3">
+    <label for="password_confirmation" class="form-label">Password Confirm</label>
+    <input name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation">
+
+    @error('password_confirmation')
+    <span class="invalid-feedback" role="alert">
+        {{$message}}
+    </span>
+    @enderror
+
+</div>
+
 @endisset
 
 
