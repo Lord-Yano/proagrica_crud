@@ -6,13 +6,12 @@
 
 <!-- Content within this section will be yielded out to main template under "yield('content') key"-->
 
-<h1>Create new user</h1>
+<h1>Edit User</h1>
 
 <div class="card">
-    <form method="POST" action="{{route('admin.users.store')}}">
-
-        <!--Create a variable called create and pass it down to the form to validate an action-->
-        @include('admin.users.partials.form', ['create'=> true])
+    <form method="POST" action="{{route('admin.users.update', $user->id)}}">
+        @method('PATCH')
+        @include('admin.users.partials.form')
     </form>
 </div>
 

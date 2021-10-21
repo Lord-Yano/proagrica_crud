@@ -25,6 +25,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // Using gates to lock users from certain pages
+
+        // define new gate
+        Gate::define('logged-in', function ($user) {
+            return $user; // returns NULL if there is no user
+        });
+
+        // Check if Admin
+        Gate::define('is-admin', function ($user) {
+            return $user->hasAnyRole('admin');  // returns NULL if there is no user
+            //return $user->hasAnyRoles(['admin', 'author']); // Gate will pass if any one of the roles exists
+        });
+
         //
     }
 }
