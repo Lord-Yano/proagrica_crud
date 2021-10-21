@@ -35,7 +35,7 @@
                 @if (Route::has('login'))
                 <div>
                     @auth
-                    <a href="{{ url('/home') }}">Home</a>
+                    <a href="{{ route('user.profile') }}">Profile</a>
                     <!--On-click, it will submit the form below using its ID and not execute a default GET request-->
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 

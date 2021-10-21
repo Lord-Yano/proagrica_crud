@@ -6,9 +6,13 @@
 
 <!-- Content within this section will be yielded out to main template under "yield('content') key"-->
 
-<h1>Login</h1>
+<h1>Reset Password</h1>
 
-<form method="POST" action="{{route('login')}}">
+<!-- Send request to Fortify
+     Redirect to forgot password page with status set in session if all is well
+     -->
+
+<form method="POST" action="{{route('password.email')}}">
     <!-- Add csrf token -->
     @csrf
     <div class="mb-3">
@@ -25,23 +29,9 @@
         @enderror
 
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password">
-
-        @error('password')
-        <span class="invalid-feedback" role="alert">
-            {{$message}}
-        </span>
-        @enderror
-
-    </div>
 
     <!--User redirected to location (Dashbord/home) indicated in RouteServiceProvider.php -->
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Reset Password</button>
 </form>
-
-<!--Password reset option for user not admin-->
-<a href="{{route('password.request')}}">Forgotten Your Password? Reset It</a>
 
 @endsection

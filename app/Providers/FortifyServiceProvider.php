@@ -59,5 +59,28 @@ class FortifyServiceProvider extends ServiceProvider
             // return login view from auth
             return view(view: 'auth.login');
         });
+
+        /** 
+         * Password reset creates random token.
+         *  Emails token and url to user.
+         *  Upon click, url returns to app to the view below
+         *  Token needs to be picked up inside the view and passed over when password reset executes
+         *  request will pick up token from view
+         */
+
+        Fortify::resetPasswordView(function ($request) {
+            // closure returns view
+            return view('auth.reset-password', ['request' => $request]);
+        });
+
+        // Password reset view for user not admin
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password');
+        });
+
+        // Verify email view
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
     }
 }

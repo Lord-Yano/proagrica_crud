@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -71,6 +72,9 @@ class UserController extends Controller
 
         // Use sync for multiple roles
         $user->roles()->sync($request->roles);
+
+        // Send user password reset link | sendResetLink requires an email
+        Password::sendResetLink($request->only(['email']));
 
         // Set flash message on session 
         $request->session()->flash('success', 'You have created the user');
